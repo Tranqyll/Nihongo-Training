@@ -7,5 +7,6 @@ before_install:
   - sudo apt-get -y install sshpass
 
 after_success:
+  - echo "${SFTP_KEY}" | base64 --decode >/tmp/sftp_rsa
   - sshpass -p ${SFTP_PASSWORD} scp -r ./* ${SFTP_USER}@tranqyll.fr:nihongo/
 
