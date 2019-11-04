@@ -419,10 +419,10 @@ function processNextWord() {
     document.getElementById("panelError").style.display = "none";
 
     if (match) {
-        document.getElementById("panelSuccess").innerHTML = translations[i].capitalizeFirstLetter();
+        document.getElementById("panelSuccessText").innerHTML = translations[i].capitalizeFirstLetter();
         document.getElementById("panelSuccess").style.display = "block";
     } else {
-        document.getElementById("panelError").innerHTML = currentWordsArray[currentId][1 - translateDirection[currentId]].capitalizeFirstLetter().replaceAll(";", ",");
+        document.getElementById("panelErrorText").innerHTML = currentWordsArray[currentId][1 - translateDirection[currentId]].capitalizeFirstLetter().replaceAll(";", ",");
         document.getElementById("panelError").style.display = "block";
     }
 
