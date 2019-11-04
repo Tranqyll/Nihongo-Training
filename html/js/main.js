@@ -224,8 +224,6 @@ function selectedItem(className) {
 function showBookOptions() {
     var book = selectedItem("book");
 
-    document.getElementById("modalSubjectTitle").innerHTML = book[1];
-
     // Now parse the corresponding map file
     getCSVList(book[0] + ".csv", function (data) {
         var subList = document.getElementById("modalSubjectList");
@@ -249,6 +247,7 @@ function showBookOptions() {
 
         // Show the modal
         document.getElementById('modalChooseSubject').style.display = 'block';
+        document.getElementById("modalSubjectTitle").innerHTML = book[1];
     });
 }
 
