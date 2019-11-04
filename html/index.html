@@ -10,24 +10,46 @@
     <meta name="robots" content="index,follow">
     <meta name="author" content="fabien.caylus@gmail.com">
     <meta name="reply-to" content="fabien.caylus@gmail.com">
-    <meta name="url" content="tranqyll.fr">
-    <meta name="identifier-URL" content="tranqyll.fr">
+    <meta name="url" content="nihongo.tranqyll.fr">
+    <meta name="identifier-URL" content="nihongo.tranqyll.fr">
     <meta name="target" content="all">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <meta name="theme-color" content="#005A51">
+    <meta name="theme-color" content="#9c27b0">
 
     <!-- Apple meta -->
-    <meta name="apple-mobile-web-app-title" content="Vocab Training">
+    <meta name="apple-mobile-web-app-title" content="Nihongo Training">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="white">
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-purple.css">
 
-    <title>Japanese vocabulary training</title>
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/imgs/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/imgs/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/imgs/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/imgs/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/imgs/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/imgs/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/imgs/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/imgs/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/imgs/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/imgs/icon-512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/imgs/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/imgs/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/imgs/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/imgs/favicon-16x16.png">
+
+    <!-- MS -->
+    <meta name="msapplication-TileColor" content="#9c27b0">
+    <meta name="msapplication-TileImage" content="/imgs/ms-icon-144x144.png">
+
+    <title>Nihongo training</title>
 
     <!-- If Javascript is disabled -->
     <noscript>
@@ -54,7 +76,7 @@
     <!-- Header -->
     <header class="w3-container w3-theme w3-padding-8" id="myHeader">
         <div class="w3-center">
-            <h1 class="w3-xxlarge">Japanese vocabulary training</h1>
+            <h1 class="w3-xxlarge">Nihongo vocabulary training</h1>
             <div class="w3-padding-16">
                 <button class="w3-btn w3-xlarge w3-theme-dark w3-hover-theme"
                     onclick="document.getElementById('modalChooseBook').style.display='block'"
@@ -90,7 +112,8 @@
                 </header>
                 <div class="w3-padding">
                     <ul class="w3-ul w3-border w3-hoverable">
-                        <li id="book_basic_1" onclick="updateList('book', 'book_basic_1')" class="w3-theme book">Basic 1</li>
+                        <li id="book_basic_1" onclick="updateList('book', 'book_basic_1')" class="w3-theme book">Basic 1
+                        </li>
                         <li id="book_basic_2" onclick="updateList('book', 'book_basic_2')" class="book">Basic 2</li>
                     </ul>
                     <br>
@@ -202,6 +225,13 @@
             </div>
         </div>
     </div><!-- pageContainer end -->
+
+    <div class="w3-container w3-center">
+        Icons made by
+        <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
+        from
+        <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+    </div>
 
 </body>
 

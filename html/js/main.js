@@ -1,7 +1,7 @@
 /*jslint browser:true */
 /*global Papa */
 
-GITHUB_DATA_URL = ""
+BASE_DATA_URL = "data/"
     
 /*
  * ----- Support section ------
@@ -147,8 +147,8 @@ function moveProgressBarTo(percent) {
 }
     
 // Retrieve a list from a csv file using papa parse
-function getCSVList(url, onFinishedFunction) {
-    Papa.parse(url, {
+function getCSVList(path, onFinishedFunction) {
+    Papa.parse(BASE_DATA_URL + path, {
         download: true,
         delimiter: "=",
         fastMode: true,
@@ -166,7 +166,7 @@ function getCSVList(url, onFinishedFunction) {
     
 // Return a concatanation of all subjects for a book
 function getAllSubjects(bookId, onFinishedFunction) {
-    getCSVList("data/" + bookId + ".csv", function(data) {
+    getCSVList(bookId + ".csv", function(data) {
         var mainList = [];
         var subCount = data.length;
         var i = 0;
@@ -177,11 +177,11 @@ function getAllSubjects(bookId, onFinishedFunction) {
                 // All subjects have been retrieved
                 onFinishedFunction(mainList);
             } else {
-                getCSVList("data/subjects/" + data[i][0] + ".csv", handleSubRequest);
+                getCSVList("subjects/" + data[i][0] + ".csv", handleSubRequest);
             }
         };
         
-        getCSVList("data/subjects/" + data[i][0] + ".csv", handleSubRequest);
+        getCSVList("subjects/" + data[i][0] + ".csv", handleSubRequest);
     });
 }
     
@@ -222,7 +222,7 @@ function showBookOptions() {
     var book = selectedItem("book");
     
     // Now parse the corresponding map file
-    getCSVList("data/" + book[0] + ".csv", function(data) {
+    getCSVList(book[0] + ".csv", function(data) {
         var subList = document.getElementById("modalSubjectList");
         // Remove previous entries
         while (subList.hasChildNodes()) {   
@@ -331,7 +331,7 @@ function startTraining() {
     if(sub[0] == "sub_all") {
         getAllSubjects(book[0], handleWordsList);
     } else {
-        getCSVList("data/subjects/" + sub[0] + ".csv", handleWordsList);
+        getCSVList("subjects/" + sub[0] + ".csv", handleWordsList);
     }
 }
 
