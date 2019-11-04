@@ -416,7 +416,7 @@ function processNextWord() {
 
     // Show corresponding alert
     document.getElementById("panelSuccess").style.display = "none";
-    document.getElementById("panelErrror").style.display = "none";
+    document.getElementById("panelError").style.display = "none";
 
     if (match) {
         document.getElementById("panelSuccess").innerHTML = translations[i].capitalizeFirstLetter();
