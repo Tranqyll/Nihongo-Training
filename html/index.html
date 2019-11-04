@@ -73,16 +73,17 @@
     <script src="js/string_score.min.js"></script>
     <script src="js/main.js"></script>
 
+    <style>
+        .book,
+        .sub {
+            cursor: pointer;
+        }
+    </style>
+
     <!-- Header -->
-    <header class="w3-container w3-theme w3-padding-8" id="myHeader">
-        <div class="w3-center">
-            <h1 class="w3-xxlarge">Nihongo vocabulary training</h1>
-            <div class="w3-padding-16">
-                <button class="w3-btn w3-xlarge w3-theme-dark w3-hover-theme"
-                    onclick="document.getElementById('modalChooseBook').style.display='block'"
-                    style="font-weight:900;">START ...</button>
-            </div>
-        </div>
+    <header class="w3-bar w3-theme w3-padding-8">
+        <img class="w3-bar-item" src="imgs/icon-512.png" style="height: 48px;" alt="Icon">
+        <h1 class="w3-bar-item w3-large" style="margin: 0;">Nihongo vocabulary training</h1>
     </header>
 
     <!-- If Javascript is disabled -->
@@ -97,9 +98,15 @@
 
     <div class="pageContainer">
         <div id="onStartDiv" class="w3-center w3-padding-64">
-            <span class="w3-tag w3-xxxlarge w3-padding-64 w3-round-large w3-center w3-theme">
-                CLICK ON START !
-            </span>
+            <button class="w3-btn w3-xlarge w3-theme w3-hover-theme"
+                onclick="document.getElementById('modalChooseBook').style.display='block'"
+                style="font-weight:900;">Start</button>
+        </div>
+
+        <div id="restartDiv" class="w3-center w3-section" style="display: none;">
+            <button class="w3-btn w3-xlarge w3-theme w3-hover-theme"
+                onclick="document.getElementById('modalChooseBook').style.display='block'"
+                style="font-weight:900;">Restart</button>
         </div>
 
         <!-- Modal used to choose a book -->
@@ -107,7 +114,7 @@
             <div class="w3-modal-content w3-card-8 w3-animate-top">
                 <header class="w3-container w3-theme">
                     <span onclick="document.getElementById('modalChooseBook').style.display='none'"
-                        class="w3-closebtn">&times;</span>
+                        class="w3-button w3-display-topright">&times;</span>
                     <h4>Choose your level ...</h4>
                 </header>
                 <div class="w3-padding">
@@ -128,8 +135,8 @@
             <div class="w3-modal-content w3-card-8 w3-animate-top">
                 <header class="w3-container w3-theme">
                     <span onclick="document.getElementById('modalChooseSubject').style.display='none'"
-                        class="w3-closebtn">&times;</span>
-                    <h4 id="modalThemeTitle">Title</h4>
+                        class="w3-button w3-display-topright">&times;</span>
+                    <h4 id="modalSubjectTitle">Title</h4>
                     <h4>Choose your subject:</h4>
                 </header>
                 <div class="w3-padding">
@@ -187,26 +194,27 @@
             </div>
         </div>
 
-        <div id="trainingDiv" class="w3-row-padding w3-animate-right" style="display:none;">
+        <div id="trainingDiv" class="w3-section w3-row-padding w3-animate-right" style="display:none;">
             <div class="w3-card-4 w3-padding-top" style="min-height:460px">
-                <header class="w3-container w3-indigo">
+                <header class="w3-container w3-theme-dark">
                     <h3 id="trainingTitle">Theme: Subject</h3>
                 </header>
 
                 <form id="trainingForm" class="w3-container" action="javascript:void(0);" autocomplete="off">
-                    <h3 id="trainingWord" class="w3-text-indigo w3-animate-right">word</h3>
+                    <h3 id="trainingWord" class="w3-text-theme w3-animate-right">word</h3>
 
-                    <label id="trainingTranslateLabel" class="w3-label w3-text-indigo">Translation in English:</label>
+                    <label id="trainingTranslateLabel" class="w3-label w3-text-theme">Translation in English:</label>
                     <input id="trainingUserInput" class="w3-input w3-border" type="text" autocomplete="off">
                     <br>
-                    <button id="trainingButtonNext" class="w3-btn w3-indigo" onclick="processNextWord()">Next</button>
+                    <button id="trainingButtonNext" class="w3-btn w3-theme-dark"
+                        onclick="processNextWord()">Next</button>
                 </form>
             </div>
         </div>
 
-        <div id="resultsDiv" class="w3-row-padding w3-animate-right" style="display:none;">
+        <div id="resultsDiv" class="w3-section w3-row-padding w3-animate-right" style="display:none;">
             <div class="w3-card-4 w3-padding-top" style="min-height:460px">
-                <header class="w3-container w3-theme">
+                <header class="w3-container w3-theme-dark">
                     <h3>Your results:</h3>
                 </header>
                 <!-- Show the score of the user -->
