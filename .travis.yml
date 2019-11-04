@@ -4,5 +4,6 @@ branchs:
     - master
 
 after_success:
-- sshpass -p ${SFTP_PASSWORD} scp -r ./* ${SFTP_USER}@tranqyll.fr:nihongo/
+  - apt-get install sshpass
+  - sshpass -p ${SFTP_PASSWORD} scp -r ./* ${SFTP_USER}@tranqyll.fr:nihongo/
 
