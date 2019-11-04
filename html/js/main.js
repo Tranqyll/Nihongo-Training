@@ -431,7 +431,6 @@ function processNextWord() {
     currentId += 1;
     if (currentId < currentWordsArray.length) {
         // Update information on screen
-        //document.getElementById('trainingWord').classList.toggle('Sw3-animate-right');
         //document.getElementById('trainingWord').classList.toggle('w3-animate-right');
 
         if (translateDirection[currentId] === 0) {
@@ -442,6 +441,9 @@ function processNextWord() {
         document.getElementById("trainingWord").innerHTML = currentWordsArray[currentId][translateDirection[currentId]].capitalizeFirstLetter().replaceAll(";", ",");
         document.getElementById("trainingButtonNext").innerHTML = "Next (" + (currentId + 1) + "/" + currentWordsArray.length + ")";
         document.getElementById('trainingUserInput').value = "";
+
+        document.getElementById('trainingUserInput').focus();
+        document.getElementById('trainingUserInput').click();
     } else {
         // The user reach the end of the words list
         document.getElementById('trainingDiv').style.display = 'none'; // Hide training div
