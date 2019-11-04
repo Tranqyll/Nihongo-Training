@@ -8,5 +8,4 @@ before_install:
 
 after_success:
   - echo "${SFTP_KEY}" | base64 --decode >/tmp/sftp_rsa
-  - sshpass -p ${SFTP_PASSWORD} scp -i /tmp/sftp_rsa -r ./* ${SFTP_USER}@tranqyll.fr:nihongo/
-  
+  - sshpass -p ${SFTP_PASSWORD} scp -o StrictHostKeyChecking=no -i /tmp/sftp_rsa -r ./* ${SFTP_USER}@tranqyll.fr:nihongo/
