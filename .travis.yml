@@ -4,5 +4,5 @@ branchs:
     - master
 
 after_success:
-- echo "${SFTP_KEY}" | base64 --decode >/tmp/sftp_rsa
-- find . -type f -exec curl --ftp-create-dirs -T {} sftp://${SFTP_USER}:${SFTP_PASSWORD}@tranqyll.fr/nihongo/{} \;
+- sshpass -p ${SFTP_PASSWORD} scp -r ./* ${SFTP_USER}@tranqyll.fr:nihongo/
+
