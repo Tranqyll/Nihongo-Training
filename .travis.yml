@@ -3,10 +3,6 @@ branchs:
   only:
     - master
 
-before_install:
-  - sudo apt-get -y install sshpass
-
 after_success:
-  - echo "${SFTP_KEY}" | base64 --decode >/tmp/sftp_rsa
-  - sshpass -p ${SFTP_PASSWORD} scp -r ./* ${SFTP_USER}@tranqyll.fr:nihongo/
-
+- echo "${SFTP_KEY}" | base64 --decode >/tmp/sftp_rsa
+- find . -type f -exec curl --ftp-create-dirs --key /tmp/sftp_rsa -T {} sftp://${SFTP_USER}:${SFTP_PASSWORD}@tranqyll.fr/nihongo/{} \;
