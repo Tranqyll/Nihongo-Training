@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="japanese, vocabulary, translation">
+    <meta name="description" content="Learn japanese vocabulary">
+    <meta name="subject" content="vocabulary">
+    <meta name="language" content="EN">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="fabien.caylus@gmail.com">
+    <meta name="reply-to" content="fabien.caylus@gmail.com">
+    <meta name="url" content="tranqyll.fr">
+    <meta name="identifier-URL" content="tranqyll.fr">
+    <meta name="target" content="all">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="theme-color" content="#005A51">
+
+    <!-- Apple meta -->
+    <meta name="apple-mobile-web-app-title" content="Vocab Training">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-purple.css">
+
+    <title>Japanese vocabulary training</title>
+
+    <!-- If Javascript is disabled -->
+    <noscript>
+        <style type="text/css">
+            .pageContainer {
+                display: none;
+            }
+        </style>
+    </noscript>
+</head>
+
+<body onload="checkCookiesOnStart();">
+    <!-- Try to support IE, but no matter if it doesn't work, nobody under 40 uses it !-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>  
+    <![endif]-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js"></script>
+    <script src="js/papaparse.min.js"></script>
+    <script src="js/latinise.min.js"></script>
+    <script src="js/string_score.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Header -->
+    <header class="w3-container w3-theme w3-padding-8" id="myHeader">
+        <div class="w3-center">
+            <h1 class="w3-xxlarge">Japanese vocabulary training</h1>
+            <div class="w3-padding-16">
+                <button class="w3-btn w3-xlarge w3-theme-dark w3-hover-theme"
+                    onclick="document.getElementById('modalChooseBook').style.display='block'"
+                    style="font-weight:900;">START ...</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- If Javascript is disabled -->
+    <noscript>
+        <div class="w3-center w3-padding-64">
+            <span class="w3-tag w3-xxxlarge w3-padding-64 w3-round-large w3-red w3-center">
+                Please enable JavaScript !<br>
+                Instructions <a href="http://www.enable-javascript.com/" target="_blank">here</a>.
+            </span>
+        </div>
+    </noscript>
+
+    <div class="pageContainer">
+        <div id="onStartDiv" class="w3-center w3-padding-64">
+            <span class="w3-tag w3-xxxlarge w3-padding-64 w3-round-large w3-center w3-theme">
+                CLICK ON START !
+            </span>
+        </div>
+
+        <!-- Modal used to choose a book -->
+        <div id="modalChooseBook" class="w3-modal">
+            <div class="w3-modal-content w3-card-8 w3-animate-top">
+                <header class="w3-container w3-theme">
+                    <span onclick="document.getElementById('modalChooseBook').style.display='none'"
+                        class="w3-closebtn">&times;</span>
+                    <h4>Choose your level ...</h4>
+                </header>
+                <div class="w3-padding">
+                    <ul class="w3-ul w3-border w3-hoverable">
+                        <li id="book_basic_1" onclick="updateList('book', 'book_basic_1')" class="w3-theme book">Basic 1</li>
+                        <li id="book_basic_2" onclick="updateList('book', 'book_basic_2')" class="book">Basic 2</li>
+                    </ul>
+                    <br>
+                    <button class="w3-btn w3-theme-dark w3-hover-theme" onclick="showBookOptions()"
+                        style="font-weight:700;">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal used to choose the subject inside a book -->
+        <div id="modalChooseSubject" class="w3-modal">
+            <div class="w3-modal-content w3-card-8 w3-animate-top">
+                <header class="w3-container w3-theme">
+                    <span onclick="document.getElementById('modalChooseSubject').style.display='none'"
+                        class="w3-closebtn">&times;</span>
+                    <h4 id="modalThemeTitle">Title</h4>
+                    <h4>Choose your subject:</h4>
+                </header>
+                <div class="w3-padding">
+                    <!-- This list is filled by the showBookOptions() js function -->
+                    <ul id="modalSubjectList" class="w3-ul w3-border w3-hoverable">
+                        <!-- Example item: -->
+                        <!-- <li id="sub_1" onclick="updateSub('sub_1')" class="sub">Subject Title</li> -->
+                    </ul>
+
+                    <!-- Some options -->
+                    <form class="w3-row w3-padding">
+                        <div class="w3-third w3-padding">
+                            <input id="radio_jptoen" class="w3-radio" type="radio" name="transdir" checked
+                                onclick="setCookie('radio_jptoen', document.getElementById('radio_jptoen').checked, 30);">
+                            <label class="w3-validate">Japanese to English</label>
+                        </div>
+                        <div class="w3-third w3-padding">
+                            <input id="radio_entojp" class="w3-radio" type="radio" name="transdir"
+                                onclick="setCookie('radio_entojp', document.getElementById('radio_entojp').checked, 30);">
+                            <label class="w3-validate">English to Japanase</label>
+                        </div>
+                        <div class="w3-third w3-padding">
+                            <input id="radio_both" class="w3-radio" type="radio" name="transdir"
+                                onclick="setCookie('radio_both', document.getElementById('radio_both').checked, 30);">
+                            <label class="w3-validate">Both</label>
+                        </div>
+                    </form>
+
+                    <div class="w3-row w3-padding">
+                        <div class="w3-third w3-padding">
+                            <input id="limitButton" class="w3-check" type="checkbox"
+                                onclick="setCookie('limitButton', document.getElementById('limitButton').checked, 30);if(document.getElementById('limitButton').checked){document.getElementById('numberOfWords').disabled=false;}else{document.getElementById('numberOfWords').disabled=true;}">
+                            <label class="w3-validate">Limit of words:</label>
+                        </div>
+                        <div class="w3-rest w3-padding">
+                            <input id="numberOfWords" class="w3-input w3-border" type="number"
+                                placeholder="Number of words" value="20" min="1" max="5000"
+                                onchange="setCookie('numberOfWords', document.getElementById('numberOfWords').value, 30);"
+                                disabled>
+                        </div>
+                    </div>
+
+                    <div class="w3-row w3-padding">
+                        <div class="w3-col w3-padding" style="width:200px;">
+                            <button class="w3-btn w3-theme-dark w3-hover-theme" onclick="startTraining()"
+                                style="font-weight:700;">Start</button>
+                        </div>
+                        <div class="w3-rest w3-padding">
+                            <input id="randomButton" class="w3-check" type="checkbox"
+                                onclick="setCookie('randomButton', document.getElementById('randomButton').checked, 30);">
+                            <label class="w3-validate">Random</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="trainingDiv" class="w3-row-padding w3-animate-right" style="display:none;">
+            <div class="w3-card-4 w3-padding-top" style="min-height:460px">
+                <header class="w3-container w3-indigo">
+                    <h3 id="trainingTitle">Theme: Subject</h3>
+                </header>
+
+                <form id="trainingForm" class="w3-container" action="javascript:void(0);" autocomplete="off">
+                    <h3 id="trainingWord" class="w3-text-indigo w3-animate-right">word</h3>
+
+                    <label id="trainingTranslateLabel" class="w3-label w3-text-indigo">Translation in English:</label>
+                    <input id="trainingUserInput" class="w3-input w3-border" type="text" autocomplete="off">
+                    <br>
+                    <button id="trainingButtonNext" class="w3-btn w3-indigo" onclick="processNextWord()">Next</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="resultsDiv" class="w3-row-padding w3-animate-right" style="display:none;">
+            <div class="w3-card-4 w3-padding-top" style="min-height:460px">
+                <header class="w3-container w3-theme">
+                    <h3>Your results:</h3>
+                </header>
+                <!-- Show the score of the user -->
+                <div class="w3-progress-container w3-padding">
+                    <div id="resultsProgress" class="w3-progressbar w3-red" style="width:0%">
+                        <div id="resultsProgressLabel" class="w3-center w3-text-white">0%</div>
+                    </div>
+                </div>
+
+                <h3 class="w3-padding">Entries:</h3>
+
+                <!-- Show the entries of the user (filled in javascript) -->
+                <table id="resultsHistoryTable" class="w3-table w3-border w3-padding">
+                </table>
+
+            </div>
+        </div>
+    </div><!-- pageContainer end -->
+
+</body>
+
+</html>
