@@ -414,6 +414,19 @@ function processNextWord() {
 
     successMap.push(match);
 
+    // Show corresponding alert
+    document.getElementById("panelSuccess").style.display = "none";
+    document.getElementById("panelErrror").style.display = "none";
+
+    if (match) {
+        document.getElementById("panelSuccess").innerHTML = translations[i].capitalizeFirstLetter();
+        document.getElementById("panelSuccess").style.display = "block";
+    } else {
+        document.getElementById("panelError").innerHTML = currentWordsArray[currentId][1 - translateDirection[currentId]].capitalizeFirstLetter().replaceAll(";", ",");
+        document.getElementById("panelError").style.display = "block";
+    }
+
+
     // Second step: move to the next word
     currentId += 1;
     if (currentId < currentWordsArray.length) {

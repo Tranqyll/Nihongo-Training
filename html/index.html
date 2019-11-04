@@ -97,6 +97,17 @@
     </noscript>
 
     <div class="pageContainer">
+        <div id="panelError" class="w3-panel w3-red w3-animate-top" style="display: none;">
+            <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <h4>Sorry ...</h4>
+            <p>The correct answser was: <span id="panelErrorText"></span></p>
+        </div>
+        <div id="panelSuccess" class="w3-panel w3-green w3-animate-top" style="display: none;">
+            <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <h4>Right answer !</h4>
+            <p>Correct answer: <span id="panelSuccessText"></span></p>
+        </div>
+
         <div id="onStartDiv" class="w3-center w3-padding-64">
             <button class="w3-btn w3-xlarge w3-theme w3-hover-theme"
                 onclick="document.getElementById('modalChooseBook').style.display='block'"
@@ -119,7 +130,8 @@
                 </header>
                 <div class="w3-padding">
                     <ul class="w3-ul w3-border w3-hoverable">
-                        <li id="book_basic_1" onclick="updateList('book', 'book_basic_1')" class="w3-theme book">Basic 1</li>
+                        <li id="book_basic_1" onclick="updateList('book', 'book_basic_1')" class="w3-theme book">Basic 1
+                        </li>
                         <li id="book_basic_2" onclick="updateList('book', 'book_basic_2')" class="book">Basic 2</li>
                     </ul>
                     <br>
