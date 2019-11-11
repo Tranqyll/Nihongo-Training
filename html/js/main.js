@@ -370,6 +370,15 @@ function removeParenthesis(str, inside) {
     }
 }
 
+// Check if the words are equal. Only apply a score threshold when input is english
+function isEqual(input, translation, direction) {
+    if (direction === 0) {
+        return translation == input || translation.score(input) >= 0.8;
+    }
+
+    return translation == input;
+}
+
 function processNextWord() {
     // First step: check current word
     var input = document.getElementById('trainingUserInput').value;
@@ -398,7 +407,7 @@ function processNextWord() {
         // Check if the translation contains parenthesis
         if (trans.indexOf("(") > -1) {
             var trans2 = removeParenthesis(trans, true);
-            if (trans2 == input || trans2.score(input) >= 0.8) {
+            if (isEqual(input, trans2, translateDirection[currentId])) {
                 match = true;
                 break;
             }
@@ -406,7 +415,7 @@ function processNextWord() {
         }
 
         // Standard check (with words inside parenthesis)
-        if (trans == input || trans.score(input) >= 0.8) {
+        if (isEqual(input, trans, translateDirection[currentId])) {
             match = true;
             break;
         }
@@ -461,7 +470,7 @@ function processNextWord() {
         percent = parseInt((percent / successMap.length) * 100);
         moveProgressBarTo(percent);
 
-        //Update entries list
+        // Update entries list
         var results = document.getElementById("resultsHistoryTable");
         while (results.hasChildNodes()) {
             results.removeChild(results.firstChild);
