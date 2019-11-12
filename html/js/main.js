@@ -1,7 +1,10 @@
 /*jslint browser:true */
 /*global Papa */
 
-BASE_DATA_URL = "data/"
+BASE_DATA_URL = "data/";
+CSV_DELIMITER = "=";
+WORDS_DELEMITER = ";";
+WORDS_DISPLAY_DELIMITER = ", ";
 
 /*
  * ----- Support section ------
@@ -153,7 +156,7 @@ function moveProgressBarTo(percent) {
 function getCSVList(path, onFinishedFunction) {
     Papa.parse(BASE_DATA_URL + path, {
         download: true,
-        delimiter: "=",
+        delimiter: CSV_DELIMITER,
         fastMode: true,
         complete: function (results, file) {
             // Papa parse appends an empty item at the end of the list
@@ -311,7 +314,7 @@ function startTraining() {
             document.getElementById("trainingTranslateLabel").innerHTML = "Translation in <b>Japanese</b>:";
         }
 
-        document.getElementById("trainingWord").innerHTML = currentWordsArray[0][translateDirection[0]].capitalizeFirstLetter().replaceAll(";", ",");
+        document.getElementById("trainingWord").innerHTML = currentWordsArray[0][translateDirection[0]].capitalizeFirstLetter().replaceAll(WORDS_DELEMITER, WORDS_DISPLAY_DELIMITER);
         document.getElementById("trainingButtonNext").innerHTML = "Next (" + (currentId + 1) + "/" + currentWordsArray.length + ")";
         document.getElementById('trainingUserInput').value = "";
 
@@ -393,7 +396,7 @@ function processNextWord() {
     input = removeUselessWords(input);
 
     // Split translations in several ones 
-    var translations = currentWordsArray[currentId][1 - translateDirection[currentId]].split(";");
+    var translations = currentWordsArray[currentId][1 - translateDirection[currentId]].split(WORDS_DELEMITER);
     var match = false;
     var i;
     for (i = 0; i < translations.length; i++) {
@@ -431,7 +434,7 @@ function processNextWord() {
         document.getElementById("panelSuccessText").innerHTML = translations[i].capitalizeFirstLetter();
         document.getElementById("panelSuccess").style.display = "block";
     } else {
-        document.getElementById("panelErrorText").innerHTML = currentWordsArray[currentId][1 - translateDirection[currentId]].capitalizeFirstLetter().replaceAll(";", ",");
+        document.getElementById("panelErrorText").innerHTML = currentWordsArray[currentId][1 - translateDirection[currentId]].capitalizeFirstLetter().replaceAll(WORDS_DELEMITER, WORDS_DISPLAY_DELIMITER);
         document.getElementById("panelError").style.display = "block";
     }
 
@@ -447,7 +450,7 @@ function processNextWord() {
         } else {
             document.getElementById("trainingTranslateLabel").innerHTML = "Translation in <b>Japanese</b>:";
         }
-        document.getElementById("trainingWord").innerHTML = currentWordsArray[currentId][translateDirection[currentId]].capitalizeFirstLetter().replaceAll(";", ",");
+        document.getElementById("trainingWord").innerHTML = currentWordsArray[currentId][translateDirection[currentId]].capitalizeFirstLetter().replaceAll(WORDS_DELEMITER, WORDS_DISPLAY_DELIMITER);
         document.getElementById("trainingButtonNext").innerHTML = "Next (" + (currentId + 1) + "/" + currentWordsArray.length + ")";
         document.getElementById('trainingUserInput').value = "";
 
@@ -480,9 +483,15 @@ function processNextWord() {
 
         for (i = 0; i < successMap.length; i++) {
             if (successMap[i]) {
-                results.innerHTML = results.innerHTML + '<tr class="w3-green"><td>' + currentWordsArray[i][0].capitalizeFirstLetter().replaceAll(";", ",") + '</td><td>' + currentWordsArray[i][1].capitalizeFirstLetter().replaceAll(";", ",") + '</td><td>' + userInputsHistory[i] + '</td></tr>';
+                results.innerHTML = results.innerHTML + '<tr class="w3-green"><td>' 
+                    + currentWordsArray[i][0].capitalizeFirstLetter().replaceAll(WORDS_DELEMITER, WORDS_DISPLAY_DELIMITER) 
+                    + '</td><td>' + currentWordsArray[i][1].capitalizeFirstLetter().replaceAll(WORDS_DELEMITER, WORDS_DISPLAY_DELIMITER) 
+                    + '</td><td>' + userInputsHistory[i] + '</td></tr>';
             } else {
-                results.innerHTML = results.innerHTML + '<tr class="w3-red"><td>' + currentWordsArray[i][0].capitalizeFirstLetter().replaceAll(";", ",") + '</td><td>' + currentWordsArray[i][1].capitalizeFirstLetter().replaceAll(";", ",") + '</td><td>' + userInputsHistory[i] + '</td></tr>';
+                results.innerHTML = results.innerHTML + '<tr class="w3-red"><td>'
+                    + currentWordsArray[i][0].capitalizeFirstLetter().replaceAll(WORDS_DELEMITER, WORDS_DISPLAY_DELIMITER)
+                    + '</td><td>' + currentWordsArray[i][1].capitalizeFirstLetter().replaceAll(WORDS_DELEMITER, WORDS_DISPLAY_DELIMITER)
+                    + '</td><td>' + userInputsHistory[i] + '</td></tr>';
             }
         }
     }
