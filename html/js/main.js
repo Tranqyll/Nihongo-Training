@@ -152,9 +152,13 @@ function moveProgressBarTo(percent) {
     }
 }
 
+function getCSVUrl(path) {
+    return BASE_DATA_URL + path;
+}
+
 // Retrieve a list from a csv file using papa parse
 function getCSVList(path, onFinishedFunction) {
-    Papa.parse(BASE_DATA_URL + path, {
+    Papa.parse(getCSVUrl(path), {
         download: true,
         delimiter: CSV_DELIMITER,
         fastMode: true,
@@ -238,11 +242,13 @@ function showBookOptions() {
         var i;
         for (i = 0; i < data.length; i++) {
             var sub = data[i];
+            var liClasses = "sub";
             if (i === 0) {
-                subList.innerHTML = subList.innerHTML + '<li id="' + sub[0] + '" onclick="updateList(' + "'sub','" + sub[0] + "'" + ')" class="w3-theme sub">' + sub[1] + '</li>';
-            } else {
-                subList.innerHTML = subList.innerHTML + '<li id="' + sub[0] + '" onclick="updateList(' + "'sub','" + sub[0] + "'" + ')" class="sub" >' + sub[1] + '</li>';
+                liClasses = "w3-theme sub";
             }
+
+            subList.innerHTML = subList.innerHTML + '<li id="' + sub[0] + '" onclick="updateList(' + "'sub','" + sub[0] + "'" + ')" class="' + liClasses + '" ><span>' +
+                sub[1] + '</span><a class="w3-right" href="' + getCSVUrl("subjects/" + sub[0] + ".csv") + '"><i class="fas fa-file-csv"></i></a></li>';
         }
 
         // Add "all" element
@@ -483,15 +489,15 @@ function processNextWord() {
 
         for (i = 0; i < successMap.length; i++) {
             if (successMap[i]) {
-                results.innerHTML = results.innerHTML + '<tr class="w3-green"><td>' 
-                    + currentWordsArray[i][0].capitalizeFirstLetter().replaceAll(WORDS_DELEMITER, WORDS_DISPLAY_DELIMITER) 
-                    + '</td><td>' + currentWordsArray[i][1].capitalizeFirstLetter().replaceAll(WORDS_DELEMITER, WORDS_DISPLAY_DELIMITER) 
-                    + '</td><td>' + userInputsHistory[i] + '</td></tr>';
+                results.innerHTML = results.innerHTML + '<tr class="w3-green"><td>' +
+                    currentWordsArray[i][0].capitalizeFirstLetter().replaceAll(WORDS_DELEMITER, WORDS_DISPLAY_DELIMITER) +
+                    '</td><td>' + currentWordsArray[i][1].capitalizeFirstLetter().replaceAll(WORDS_DELEMITER, WORDS_DISPLAY_DELIMITER) +
+                    '</td><td>' + userInputsHistory[i] + '</td></tr>';
             } else {
-                results.innerHTML = results.innerHTML + '<tr class="w3-red"><td>'
-                    + currentWordsArray[i][0].capitalizeFirstLetter().replaceAll(WORDS_DELEMITER, WORDS_DISPLAY_DELIMITER)
-                    + '</td><td>' + currentWordsArray[i][1].capitalizeFirstLetter().replaceAll(WORDS_DELEMITER, WORDS_DISPLAY_DELIMITER)
-                    + '</td><td>' + userInputsHistory[i] + '</td></tr>';
+                results.innerHTML = results.innerHTML + '<tr class="w3-red"><td>' +
+                    currentWordsArray[i][0].capitalizeFirstLetter().replaceAll(WORDS_DELEMITER, WORDS_DISPLAY_DELIMITER) +
+                    '</td><td>' + currentWordsArray[i][1].capitalizeFirstLetter().replaceAll(WORDS_DELEMITER, WORDS_DISPLAY_DELIMITER) +
+                    '</td><td>' + userInputsHistory[i] + '</td></tr>';
             }
         }
     }
